@@ -17,3 +17,15 @@ app.listen(3000,()=>{
 
 app.use("/backend/user",userRoutes);
 app.use("/backend/auth",authRoutes);
+
+
+app.use((err,req,res,next)=>{
+    const statusCode=err.statusCode ||500; 
+    const message=err.message ||'Internal Server Error';
+    return res.status(statusCode).json({
+        sucess:false,
+        error:message,
+        statusCode
+    });
+}
+)
